@@ -56,16 +56,16 @@ def chooseRent(r):
     if r==3:
         return 200
 # Function that generates random number
-def random(b):
+def generate_random_number(b):
         if(b == 1):
-            random = random.randint(100, 200)
-            return random
+            randnum = random.randint(100, 200)
+            return randnum
         elif(b == 2):
-            random = random.randint(300, 400)
-            return random
-        elif(b == 2):
-            random = random.randint(500, 600)
-            return random
+            randnum = random.randint(300, 400)
+            return randnum
+        elif(b == 3):
+            randnum = random.randint(500, 600)
+            return randnum
 
 def main():
     pygame.init()
@@ -98,6 +98,10 @@ def main():
         screen.blit(incometext, (30, 170))
         renttext = font.render("Your rent is $150 a week", True, (0, 0, 0))
         screen.blit(renttext, (30, 190))
+        random_number = generate_random_number(1)
+        randomtext = font.render(f"Random number: {random_number}", True, (0, 0, 0))
+        screen.blit(randomtext, (30, 210))
+
     elif difficulty == "medium":
         text = font.render("Medium selected!", True, (0, 0, 0))
         screen.blit(text, (30, 150))
@@ -105,6 +109,9 @@ def main():
         screen.blit(incometext, (30, 170))
         renttext = font.render("Your rent is $150 a week", True, (0, 0, 0))
         screen.blit(renttext, (30, 190))
+        random_number = generate_random_number(2)
+        randomtext = font.render(f"Random number: {random_number}", True, (0, 0, 0))
+        screen.blit(randomtext, (30, 210))
     elif difficulty == "hard":
         text = font.render("Hard selected!", True, (0, 0, 0))
         screen.blit(text, (30, 150))
@@ -112,6 +119,9 @@ def main():
         screen.blit(incometext, (30, 170))
         renttext = font.render("Your rent is $200 a week", True, (0, 0, 0))
         screen.blit(renttext, (30, 190))
+        random_number = generate_random_number(3)
+        randomtext = font.render(f"Random number: {random_number}", True, (0, 0, 0))
+        screen.blit(randomtext, (30, 210))
 
     pygame.display.flip()
 
