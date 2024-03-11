@@ -67,6 +67,17 @@ def generate_random_number(b):
             randnum = random.randint(500, 600)
             return randnum
 
+def generate_random_phrase(b):
+    phrases = ["a", "b", "c", "d", "e", "f", "g", "h", "i"]
+    if b == 1:
+        random_number = random.randint(100, 200)
+    elif b == 2:
+        random_number = random.randint(300, 400)
+    elif b == 3:
+        random_number = random.randint(500, 600)
+    phrase = random.choice(phrases)
+    return phrase, random_number
+
 def main():
     pygame.init()
     screen = pygame.display.set_mode((800, 700))
@@ -92,36 +103,48 @@ def main():
         pygame.display.flip()
 
     if difficulty == "easy":
+        easytotal = 1000
         text = font.render("Easy selected!", True, (0, 0, 0))
         screen.blit(text, (30, 150))
         incometext = font.render("Your income is $1,000 a week", True, (0, 0, 0))
         screen.blit(incometext, (30, 170))
         renttext = font.render("Your rent is $150 a week", True, (0, 0, 0))
         screen.blit(renttext, (30, 190))
-        random_number = generate_random_number(1)
-        randomtext = font.render(f"Random number: {random_number}", True, (0, 0, 0))
-        screen.blit(randomtext, (30, 210))
+        random_offset = 210
+        for i in range(7):
+            phrase, rand_num = generate_random_phrase(1)
+            randomtext = font.render(f"{phrase} - Value: {rand_num}", True, (0, 0, 0))
+            screen.blit(randomtext, (30, random_offset))
+            random_offset += 20
 
     elif difficulty == "medium":
+        mediumtotal = 750
         text = font.render("Medium selected!", True, (0, 0, 0))
         screen.blit(text, (30, 150))
         incometext = font.render("Your income is $750 a week", True, (0, 0, 0))
         screen.blit(incometext, (30, 170))
         renttext = font.render("Your rent is $150 a week", True, (0, 0, 0))
         screen.blit(renttext, (30, 190))
-        random_number = generate_random_number(2)
-        randomtext = font.render(f"Random number: {random_number}", True, (0, 0, 0))
-        screen.blit(randomtext, (30, 210))
+        random_offset = 210
+        for i in range(7):
+            phrase, rand_num = generate_random_phrase(2)
+            randomtext = font.render(f"{phrase} - Value: {rand_num}")
+            screen.blit(randomtext, (30, random_offset))
+            random_offset += 20
     elif difficulty == "hard":
+        hardtotal = 500
         text = font.render("Hard selected!", True, (0, 0, 0))
         screen.blit(text, (30, 150))
         incometext = font.render("Your income is $500 a week", True, (0, 0, 0))
         screen.blit(incometext, (30, 170))
         renttext = font.render("Your rent is $200 a week", True, (0, 0, 0))
         screen.blit(renttext, (30, 190))
-        random_number = generate_random_number(3)
-        randomtext = font.render(f"Random number: {random_number}", True, (0, 0, 0))
-        screen.blit(randomtext, (30, 210))
+        random_offset = 210
+        for i in range(7):
+            phrase, rand_num = generate_random_phrase(3)
+            randomtext = font.render(f"{phrase} - Value: {rand_num}")
+            screen.blit(randomtext, (30, random_offset))
+            random_offset += 20
 
     pygame.display.flip()
 
