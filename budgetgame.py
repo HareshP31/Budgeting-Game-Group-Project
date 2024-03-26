@@ -148,7 +148,7 @@ def main():
         random_offset = 210
         for i in range(7):
             phrase, rand_num = generate_random_phrase(2)
-            randomtext = font.render(f"{phrase} - Value: {rand_num}")
+            randomtext = font.render(f"{phrase} - Value: {rand_num}", True, (0, 0, 0))
             screen.blit(randomtext, (30, random_offset))
             random_offset += 20
     elif difficulty == "hard":
@@ -162,7 +162,7 @@ def main():
         random_offset = 210
         for i in range(7):
             phrase, rand_num = generate_random_phrase(3)
-            randomtext = font.render(f"{phrase} - Value: {rand_num}")
+            randomtext = font.render(f"{phrase} - Value: {rand_num}", True, (0, 0, 0))
             screen.blit(randomtext, (30, random_offset))
             random_offset += 20
 
