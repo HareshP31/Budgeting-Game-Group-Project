@@ -68,7 +68,27 @@ def generate_random_number(b):
             return randnum
 
 def generate_random_phrase(b):
-    phrases = ["a", "b", "c", "d", "e", "f", "g", "h", "i"]
+    phrases = [
+    "Your pet fell ill recently. The cost to see the vet is:",
+    "Your child is going on a school field trip to the Grand Canyon. She’s been wanting to go for the longest time and the cost is:",
+    "You fell down the stairs and possibly twisted your ankle. A doctor visit costs:",
+    "You were brushing your teeth in the bathroom when you suddenly felt a drop on your face. Your roof is leaking! To fix it costs:",
+    "Your car broke down and towing it will cost:",
+    "Your refrigerator stopped working and it will cost:",
+    "Your child's school is hosting a fundraising event, and the suggested donation is:",
+    "Your laptop screen cracked, and replacing it will cost:",
+    "Your water heater malfunctioned, and fixing it will cost:"
+    "You just got a bonus! Worth:",
+    "Your daughter got a full ride to her dream college and financial aid worth:",
+    "It is the holiday season! You got a gift card worth:",
+    "Congratulations! You won a contest and received groceries worth:",
+    "Great news! Your utility bills decreased this month due to energy-saving improvements by:",
+    "Your job gave you a bonus for working overtime. Worth:",
+    "Lucky day! Your insurance rewarded you for safe driving with:",
+    "You received a tax refund from overpaid taxes last year. Worth:",
+    "A friend paid you back after they owed you for a long time. Worth:",
+    "Your favorite store is having a clearance sale, and you saved:"
+    ]
     if b == 1:
         random_number = random.randint(100, 200)
     elif b == 2:
@@ -80,7 +100,7 @@ def generate_random_phrase(b):
 
 def main():
     pygame.init()
-    screen = pygame.display.set_mode((800, 700))
+    screen = pygame.display.set_mode((1366, 768))
     pygame.display.set_caption("Difficulty Selection")
 
     font = pygame.font.SysFont("comic sans", 20)
