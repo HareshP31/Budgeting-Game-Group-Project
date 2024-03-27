@@ -135,7 +135,18 @@ def main():
             phrase, rand_num = generate_random_phrase(1)
             randomtext = font.render(f"{phrase} - Value: {rand_num}", True, (0, 0, 0))
             screen.blit(randomtext, (30, random_offset))
-            random_offset += 20
+            random_offset += 25
+            pygame.display.flip()
+            while True:
+                event = pygame.event.wait()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_y:
+                        break
+                    elif event.key == pygame.K_n:
+                        break
+                    elif event.key == pygame.K_ESCAPE:
+                        pygame.quit()
+                        sys.exit()
 
     elif difficulty == "medium":
         mediumtotal = 750
@@ -150,7 +161,19 @@ def main():
             phrase, rand_num = generate_random_phrase(2)
             randomtext = font.render(f"{phrase} - Value: {rand_num}", True, (0, 0, 0))
             screen.blit(randomtext, (30, random_offset))
-            random_offset += 20
+            random_offset += 25
+            pygame.display.flip()
+            while True:
+                event = pygame.event.wait()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_y:
+                        break
+                    elif event.key == pygame.K_n:
+                        break
+                    elif event.key == pygame.K_ESCAPE:
+                        pygame.quit()
+                        sys.exit()
+
     elif difficulty == "hard":
         hardtotal = 500
         text = font.render("Hard selected!", True, (0, 0, 0))
@@ -164,7 +187,19 @@ def main():
             phrase, rand_num = generate_random_phrase(3)
             randomtext = font.render(f"{phrase} - Value: {rand_num}", True, (0, 0, 0))
             screen.blit(randomtext, (30, random_offset))
-            random_offset += 20
+            random_offset += 25
+            pygame.display.flip()
+            while True:
+                event = pygame.event.wait()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_y:
+                        break
+                    elif event.key == pygame.K_n:
+                        break
+                    elif event.key == pygame.K_ESCAPE:
+                        pygame.quit()
+                        sys.exit()
+
 
     pygame.display.flip()
 
