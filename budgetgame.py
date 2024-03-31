@@ -71,13 +71,13 @@ def generate_random_phrase(b):
     phrases = [
     "Your pet fell ill recently. The cost to see the vet is:",
     "Your child is going on a school field trip to the Grand Canyon. She’s been wanting to go for the longest time and the cost is:",
-    "You fell down the stairs and possibly twisted your ankle. A doctor visit costs:",
     "You were brushing your teeth in the bathroom when you suddenly felt a drop on your face. Your roof is leaking! To fix it costs:",
-    "Your car broke down and towing it will cost:",
-    "Your refrigerator stopped working and it will cost:",
     "Your child's school is hosting a fundraising event, and the suggested donation is:",
     "Your laptop screen cracked, and replacing it will cost:",
-    "Your water heater malfunctioned, and fixing it will cost:"
+    "Your water heater malfunctioned, and fixing it will cost:",
+    "You fell down the stairs and possibly twisted your ankle. A doctor visit costs:",
+    "Your car broke down and towing it will cost:",
+    "Your refrigerator stopped working and it will cost:",
     "You just got a bonus! Worth:",
     "Your daughter got a full ride to her dream college and financial aid worth:",
     "It is the holiday season! You got a gift card worth:",
@@ -89,6 +89,7 @@ def generate_random_phrase(b):
     "A friend paid you back after they owed you for a long time. Worth:",
     "Your favorite store is having a clearance sale, and you saved:"
     ]
+
     if b == 1:
         random_number = random.randint(100, 200)
     elif b == 2:
@@ -131,7 +132,7 @@ def main():
         renttext = font.render("Your rent is $150 a week", True, (0, 0, 0))
         screen.blit(renttext, (30, 190))
         random_offset = 210
-        for i in range(7):
+        for i in range(28):
             phrase, rand_num = generate_random_phrase(1)
             randomtext = font.render(f"{phrase} - Value: {rand_num}", True, (0, 0, 0))
             screen.blit(randomtext, (30, random_offset))
@@ -141,8 +142,21 @@ def main():
                 event = pygame.event.wait()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_y:
+                        easytotal += rand_num
+                        totaltext = font.render(f"Your Total: {easytotal}", True, (0, 0, 0))
+                        screen.blit(totaltext, (30, random_offset))
+                        random_offset += 25
+                        if((i+2)%7 == 0 and (i+2) != 0):
+                            easytotal += chooseIncome(1)
+                            easytotal -= chooseRent(1)
                         break
                     elif event.key == pygame.K_n:
+                        totaltext = font.render(f"Your Total: {easytotal}", True, (0, 0, 0))
+                        screen.blit(totaltext, (30, random_offset))
+                        random_offset += 25
+                        if((i+2)%7 == 0 and (i+2) != 0):
+                            easytotal += chooseIncome(1)
+                            easytotal -= chooseRent(1)
                         break
                     elif event.key == pygame.K_ESCAPE:
                         pygame.quit()
