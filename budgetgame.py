@@ -115,7 +115,9 @@ def main():
         screen.blit(incometext, (30, 170))
         renttext = font.render("Your rent is $150 a week", True, (0, 0, 0))
         screen.blit(renttext, (30, 190))
-        random_offset = 210
+        weektext = font.render("Week 1: ", True, (0, 0, 0))
+        screen.blit(weektext, (30, 210))
+        random_offset = 230
         for i in range(28):
             phrase, rand_num = generate_random_phrase(1)
             randomtext = font.render(f"{phrase} - Value: {rand_num}", True, (0, 0, 0))
@@ -125,8 +127,10 @@ def main():
             if(key_counter%7 == 0 and key_counter != 0):
                 white = (255, 255, 255)
                 screen.fill(white)
-                pygame.display.flip()
                 random_offset = 20
+                weektext = font.render(f"Week {(i//7)+1}: ", True, (0, 0, 0))
+                screen.blit(weektext, (30, 0))
+                pygame.display.flip()
             while True:
                 event = pygame.event.wait()
                 if event.type == pygame.KEYDOWN:
@@ -162,7 +166,9 @@ def main():
         screen.blit(incometext, (30, 170))
         renttext = font.render("Your rent is $150 a week", True, (0, 0, 0))
         screen.blit(renttext, (30, 190))
-        random_offset = 210
+        weektext = font.render("Week 1: ", True, (0, 0, 0))
+        screen.blit(weektext, (30, 210))
+        random_offset = 230
         for i in range(28):
             phrase, rand_num = generate_random_phrase(2)
             randomtext = font.render(f"{phrase} - Value: {rand_num}", True, (0, 0, 0))
@@ -172,8 +178,10 @@ def main():
             if(key_counter%7 == 0 and key_counter != 0):
                 white = (255, 255, 255)
                 screen.fill(white)
-                pygame.display.flip()
                 random_offset = 20
+                weektext = font.render(f"Week {(i//7)+1}: ", True, (0, 0, 0))
+                screen.blit(weektext, (30, 0))
+                pygame.display.flip()
             while True:
                 event = pygame.event.wait()
                 if event.type == pygame.KEYDOWN:
@@ -208,7 +216,9 @@ def main():
         screen.blit(incometext, (30, 170))
         renttext = font.render("Your rent is $200 a week", True, (0, 0, 0))
         screen.blit(renttext, (30, 190))
-        random_offset = 210
+        weektext = font.render("Week 1: ", True, (0, 0, 0))
+        screen.blit(weektext, (30, 210))
+        random_offset = 230
         for i in range(28):
             phrase, rand_num = generate_random_phrase(3)
             randomtext = font.render(f"{phrase} - Value: {rand_num}", True, (0, 0, 0))
@@ -218,8 +228,10 @@ def main():
             if(key_counter%7 == 0 and key_counter != 0):
                 white = (255, 255, 255)
                 screen.fill(white)
-                pygame.display.flip()
                 random_offset = 20
+                weektext = font.render(f"Week {(i//7)+1}: ", True, (0, 0, 0))
+                screen.blit(weektext, (30, 0))
+                pygame.display.flip()
             while True:
                 event = pygame.event.wait()
                 if event.type == pygame.KEYDOWN:
