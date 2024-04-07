@@ -1,7 +1,5 @@
 import pygame
-import math
 import random
-import time, os.path
 import sys
 
 # Function to handle events
@@ -20,7 +18,7 @@ def handle_events():
             elif event.key == pygame.K_m:
                 return "medium"
             elif event.key == pygame.K_h:
-                return "hard"
+                return "hard"     
             else:
                 print("Please enter 'e', 'm', or 'h'")
     return None
@@ -53,37 +51,37 @@ def generate_random_number(b):
 # Function to generate phrases
 def generate_random_phrase(b):
     good_nochoice = [
-        "Congratulations! You won a contest and received groceries worth:",
-        "You just got a bonus! Worth:",
-        "Your daughter got a full ride to her dream college and financial aid worth:",
-        "It is the holiday season! You got a gift card worth:",
-        "Great news! Your utility bills decreased this month due to energy-saving improvements by:",
-        "Your job gave you a bonus for working overtime. Worth:",
-        "Lucky day! Your insurance rewarded you for safe driving with:",
-        "You received a tax refund from overpaid taxes last year. Worth:",
-        "A friend paid you back after they owed you for a long time. Worth:",
-        "Your favorite store is having a clearance sale, and you saved:"
+        "Congratulations! You won a contest and received groceries worth: (Press space)",
+        "You just got a bonus! Worth: (Press space)",
+        "Your daughter got a full ride to her dream college and financial aid worth: (Press space)",
+        "It is the holiday season! You got a gift card worth: (Press space)",
+        "Great news! Your utility bills decreased this month due to energy-saving improvements by: (Press space)",
+        "Your job gave you a bonus for working overtime. Worth: (Press space)",
+        "Lucky day! Your insurance rewarded you for safe driving with: (Press space)",
+        "You received a tax refund from overpaid taxes last year. Worth: (Press space)",
+        "A friend paid you back after they owed you for a long time. Worth: (Press space)",
+        "Your favorite store is having a clearance sale, and you saved: (Press space)"
     ]
     bad_nochoice = [
-        "Your refrigerator stopped working and it will cost:",
-        "Your car broke down and towing it will cost:",
-        "Your pet fell ill recently. The cost to see the vet is:",
-        "You were brushing your teeth in the bathroom when you suddenly felt a drop on your face. Your roof is leaking! To fix it costs:",
-        "You fell down the stairs and possibly twisted your ankle. A doctor visit costs:",
-        "Your grandfather needs help to pay for his medical bills worth:",
+        "Your refrigerator stopped working and it will cost: (Press space)",
+        "Your car broke down and towing it will cost: (Press space)",
+        "Your pet fell ill recently. The cost to see the vet is: (Press space)",
+        "You were brushing your teeth in the bathroom when you suddenly felt a drop on your face. Your roof is leaking! To fix it costs: (Press space)",
+        "You fell down the stairs and possibly twisted your ankle. A doctor visit costs: (Press space)",
+        "Your grandfather needs help to pay for his medical bills worth: (Press space)",
     ]
     yesno = [
-        "Your child is going on a school field trip to the Grand Canyon. She’s been wanting to go for the longest time and the cost is:",
-        "Your child's school is hosting a fundraising event, and the suggested donation is:",
-        "Your laptop screen cracked, and replacing it will cost:",
-        "Your water heater malfunctioned, and fixing it will cost:",
-        "Your grandmother is ill and she needs you. The flight to see her costs:",
-        "It is your best friend's birthday; the present costs:",
-        "Your TV broke; a new TV costs:",
-        "Your bed frame broke; a new one costs:",
-        "Your friends invited you to a concert that costs:",
-        "You need a haircut that will cost:",
-        "Your lawn needs mowing which will cost:"
+        "Your child is going on a school field trip to the Grand Canyon. She’s been wanting to go for the longest time and the cost is: (Y/N?)",
+        "Your child's school is hosting a fundraising event, and the suggested donation is: (Y/N?)",
+        "Your laptop screen cracked, and replacing it will cost: (Y/N?)",
+        "Your water heater malfunctioned, and fixing it will cost: (Y/N?)",
+        "Your grandmother is ill and she needs you. The flight to see her costs: (Y/N?)",
+        "It is your best friend's birthday; the present costs: (Y/N?)",
+        "Your TV broke; a new TV costs: (Y/N?)",
+        "Your bed frame broke; a new one costs: (Y/N?)",
+        "Your friends invited you to a concert that costs: (Y/N?)",
+        "You need a haircut that will cost: (Y/N?)",
+        "Your lawn needs mowing which will cost: (Y/N?)"
     ]
     # Sets number range based on difficulty
     if b == 1:
@@ -107,7 +105,15 @@ def generate_random_phrase(b):
     # Return values
     return phrase, random_number, y
 
+def reset_game():
+    global key_counter, easytotal, mediumtotal, hardtotal
+    key_counter = 0
+    easytotal = 0
+    mediumtotal = 0
+    hardtotal = 0
+
 def main():
+    global key_counter, easytotal, mediumtotal, hardtotal
     # Initialize pygame window
     pygame.init()
     screen = pygame.display.set_mode((1366, 768))
@@ -119,6 +125,10 @@ def main():
     difficulty = None
     # For refreshing window to blank screen
     key_counter = 0
+    # total variables
+    easytotal = 1000
+    mediumtotal = 750
+    hardtotal = 500
 
     while running:
         screen.fill((255, 255, 255))
@@ -137,8 +147,6 @@ def main():
         pygame.display.flip()
 
     if difficulty == "easy":
-        # total variable
-        easytotal = 1000
         # prints header
         text = font.render("Easy selected!", True, (0, 0, 0))
         screen.blit(text, (30, 150))
@@ -157,6 +165,10 @@ def main():
                     if event.key == pygame.K_SPACE:
                         phrase, rand_num, y = generate_random_phrase(1)
                         break
+                    elif event.key == pygame.K_ESCAPE:
+                            pygame.quit()
+                            sys.exit()
+                            
             randomtext = font.render(f"{phrase} - Value: {rand_num}", True, (0, 0, 0))
             screen.blit(randomtext, (30, random_offset))
             random_offset += 25
@@ -173,16 +185,22 @@ def main():
             if(y == 1):
                 key_counter += 1
                 easytotal += rand_num
-                totaltext = font.render(f"Your Total: {easytotal}", True, (0, 0, 0))
+                totaltext = font.render(f"Your Total: {easytotal}", True, (0, 0, 255))
                 screen.blit(totaltext, (30, random_offset))
                 random_offset += 25
+                if((i+2)%7 == 0 and (i+2) != 0):
+                    easytotal += chooseIncome(1)
+                    easytotal -= chooseRent(1)
             # If it is bad phrase and requires no input
             elif(y == 2):
                 key_counter += 1
                 easytotal -= rand_num
-                totaltext = font.render(f"Your Total: {easytotal}", True, (0, 0, 0))
+                totaltext = font.render(f"Your Total: {easytotal}", True, (0, 0, 255))
                 screen.blit(totaltext, (30, random_offset))
                 random_offset += 25
+                if((i+2)%7 == 0 and (i+2) != 0):
+                    easytotal += chooseIncome(1)
+                    easytotal -= chooseRent(1)
             # If it is phrase that requires input
             elif(y == 3):
                 while True:
@@ -192,7 +210,7 @@ def main():
                         if event.key == pygame.K_y:
                             key_counter += 1
                             easytotal -= rand_num
-                            totaltext = font.render(f"Your Total: {easytotal}", True, (0, 0, 0))
+                            totaltext = font.render(f"Your Total: {easytotal}", True, (0, 0, 255))
                             screen.blit(totaltext, (30, random_offset))
                             random_offset += 25
                             # if it is the end of the week 
@@ -203,7 +221,7 @@ def main():
                         # N key is pressed
                         elif event.key == pygame.K_n:
                             key_counter += 1
-                            totaltext = font.render(f"Your Total: {easytotal}", True, (0, 0, 0))
+                            totaltext = font.render(f"Your Total: {easytotal}", True, (0, 0, 255))
                             screen.blit(totaltext, (30, random_offset))
                             random_offset += 25
                             # if it is the end of the week 
@@ -214,10 +232,19 @@ def main():
                         elif event.key == pygame.K_ESCAPE:
                             pygame.quit()
                             sys.exit()
+            if(i==27):
+                if(easytotal>1000):
+                    finaltext = font.render("You finished with more than what you started with!", True, (0, 255, 0)) 
+                    screen.blit(finaltext, (30, random_offset))
+                elif(easytotal<1000 and easytotal>0):
+                    finaltext = font.render("You finished with less than what you started with!", True, (255, 0, 0))
+                    screen.blit(finaltext, (30, random_offset))
+                elif(easytotal<0):
+                    finaltext = font.render("You finished and you are in debt :(", True, (255, 0, 0))                 
+                    screen.blit(finaltext, (30, random_offset))          
         
 
     elif difficulty == "medium":
-        mediumtotal = 750
         text = font.render("Medium selected!", True, (0, 0, 0))
         screen.blit(text, (30, 150))
         incometext = font.render("Your income is $750 a week", True, (0, 0, 0))
@@ -249,15 +276,21 @@ def main():
             if(y == 1):
                 key_counter += 1
                 mediumtotal += rand_num
-                totaltext = font.render(f"Your Total: {mediumtotal}", True, (0, 0, 0))
+                totaltext = font.render(f"Your Total: {mediumtotal}", True, (0, 0, 255))
                 screen.blit(totaltext, (30, random_offset))
                 random_offset += 25
+                if((i+2)%7 == 0 and (i+2) != 0):
+                    mediumtotal += chooseIncome(2)
+                    mediumtotal -= chooseRent(2)
             elif(y == 2):
                 key_counter += 1
                 mediumtotal -= rand_num
-                totaltext = font.render(f"Your Total: {mediumtotal}", True, (0, 0, 0))
+                totaltext = font.render(f"Your Total: {mediumtotal}", True, (0, 0, 255))
                 screen.blit(totaltext, (30, random_offset))
                 random_offset += 25
+                if((i+2)%7 == 0 and (i+2) != 0):
+                    mediumtotal += chooseIncome(2)
+                    mediumtotal -= chooseRent(2)
             elif(y == 3):
                 while True:
                     event = pygame.event.wait()
@@ -265,28 +298,37 @@ def main():
                         if event.key == pygame.K_y:
                             key_counter += 1
                             mediumtotal -= rand_num
-                            totaltext = font.render(f"Your Total: {mediumtotal}", True, (0, 0, 0))
+                            totaltext = font.render(f"Your Total: {mediumtotal}", True, (0, 0, 255))
                             screen.blit(totaltext, (30, random_offset))
                             random_offset += 25
                             if((i+2)%7 == 0 and (i+2) != 0):
-                                mediumtotal += chooseIncome(1)
-                                mediumtotal -= chooseRent(1)
+                                mediumtotal += chooseIncome(2)
+                                mediumtotal -= chooseRent(2)
                             break
                         elif event.key == pygame.K_n:
                             key_counter += 1
-                            totaltext = font.render(f"Your Total: {mediumtotal}", True, (0, 0, 0))
+                            totaltext = font.render(f"Your Total: {mediumtotal}", True, (0, 0, 255))
                             screen.blit(totaltext, (30, random_offset))
                             random_offset += 25
                             if((i+2)%7 == 0 and (i+2) != 0):
-                                mediumtotal += chooseIncome(1)
-                                mediumtotal -= chooseRent(1)
+                                mediumtotal += chooseIncome(2)
+                                mediumtotal -= chooseRent(2)
                             break
                         elif event.key == pygame.K_ESCAPE:
                             pygame.quit()
                             sys.exit()
+            if(i==27):
+                if(mediumtotal>1000):
+                    finaltext = font.render("You finished with more than what you started with!", True, (0, 255, 0)) 
+                    screen.blit(finaltext, (30, random_offset))
+                elif(mediumtotal<1000 and mediumtotal>0):
+                    finaltext = font.render("You finished with less than what you started with!", True, (255, 0, 0))
+                    screen.blit(finaltext, (30, random_offset))
+                elif(mediumtotal<0):
+                    finaltext = font.render("You finished and you are in debt :(", True, (255, 0, 0))                 
+                    screen.blit(finaltext, (30, random_offset))                                
 
     elif difficulty == "hard":
-        hardtotal = 500
         text = font.render("Hard selected!", True, (0, 0, 0))
         screen.blit(text, (30, 150))
         incometext = font.render("Your income is $500 a week", True, (0, 0, 0))
@@ -318,15 +360,21 @@ def main():
             if(y == 1):
                 key_counter += 1
                 hardtotal += rand_num
-                totaltext = font.render(f"Your Total: {hardtotal}", True, (0, 0, 0))
+                totaltext = font.render(f"Your Total: {hardtotal}", True, (0, 0, 255))
                 screen.blit(totaltext, (30, random_offset))
                 random_offset += 25
+                if((i+2)%7 == 0 and (i+2) != 0):
+                    hardtotal += chooseIncome(3)
+                    hardtotal -= chooseRent(3)
             elif(y == 2):
                 key_counter += 1
                 hardtotal -= rand_num
-                totaltext = font.render(f"Your Total: {hardtotal}", True, (0, 0, 0))
+                totaltext = font.render(f"Your Total: {hardtotal}", True, (0, 0, 255))
                 screen.blit(totaltext, (30, random_offset))
                 random_offset += 25
+                if((i+2)%7 == 0 and (i+2) != 0):
+                    hardtotal += chooseIncome(3)
+                    hardtotal -= chooseRent(3)
             elif(y == 3):
                 while True:
                     event = pygame.event.wait()
@@ -334,25 +382,35 @@ def main():
                         if event.key == pygame.K_y:
                             key_counter += 1
                             hardtotal -= rand_num
-                            totaltext = font.render(f"Your Total: {hardtotal}", True, (0, 0, 0))
+                            totaltext = font.render(f"Your Total: {hardtotal}", True, (0, 0, 255))
                             screen.blit(totaltext, (30, random_offset))
                             random_offset += 25
                             if((i+2)%7 == 0 and (i+2) != 0):
-                                hardtotal += chooseIncome(1)
-                                hardtotal -= chooseRent(1)
+                                hardtotal += chooseIncome(3)
+                                hardtotal -= chooseRent(3)
                             break
                         elif event.key == pygame.K_n:
                             key_counter += 1
-                            totaltext = font.render(f"Your Total: {hardtotal}", True, (0, 0, 0))
+                            totaltext = font.render(f"Your Total: {hardtotal}", True, (0, 0, 255))
                             screen.blit(totaltext, (30, random_offset))
                             random_offset += 25
                             if((i+2)%7 == 0 and (i+2) != 0):
-                                hardtotal += chooseIncome(1)
-                                hardtotal -= chooseRent(1)
+                                hardtotal += chooseIncome(3)
+                                hardtotal -= chooseRent(3)
                             break
                         elif event.key == pygame.K_ESCAPE:
                             pygame.quit()
                             sys.exit()
+            if(i==27):
+                if(hardtotal>1000):
+                    finaltext = font.render("You finished with more than what you started with!", True, (0, 255, 0)) 
+                    screen.blit(finaltext, (30, random_offset))
+                elif(hardtotal<1000 and hardtotal>0):
+                    finaltext = font.render("You finished with less than what you started with!", True, (255, 0, 0))
+                    screen.blit(finaltext, (30, random_offset))
+                elif(hardtotal<0):
+                    finaltext = font.render("You finished and you are in debt :(", True, (255, 0, 0))                 
+                    screen.blit(finaltext, (30, random_offset))     
 
 
     pygame.display.flip()
