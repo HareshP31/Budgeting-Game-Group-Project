@@ -188,7 +188,7 @@ def main():
                 totaltext = font.render(f"Your Total: {easytotal}", True, (0, 0, 255))
                 screen.blit(totaltext, (30, random_offset))
                 random_offset += 25
-                if((i+2)%7 == 0 and (i+2) != 0):
+                if((i+1)%7 == 0):
                     easytotal += chooseIncome(1)
                     easytotal -= chooseRent(1)
             # If it is bad phrase and requires no input
@@ -198,7 +198,7 @@ def main():
                 totaltext = font.render(f"Your Total: {easytotal}", True, (0, 0, 255))
                 screen.blit(totaltext, (30, random_offset))
                 random_offset += 25
-                if((i+2)%7 == 0 and (i+2) != 0):
+                if((i+1)%7 == 0):
                     easytotal += chooseIncome(1)
                     easytotal -= chooseRent(1)
             # If it is phrase that requires input
@@ -214,7 +214,7 @@ def main():
                             screen.blit(totaltext, (30, random_offset))
                             random_offset += 25
                             # if it is the end of the week 
-                            if((i+2)%7 == 0 and (i+2) != 0):
+                            if((i+1)%7 == 0):
                                 easytotal += chooseIncome(1)
                                 easytotal -= chooseRent(1)
                             break
@@ -225,7 +225,7 @@ def main():
                             screen.blit(totaltext, (30, random_offset))
                             random_offset += 25
                             # if it is the end of the week 
-                            if((i+2)%7 == 0 and (i+2) != 0):
+                            if((i+1)%7 == 0):
                                 easytotal += chooseIncome(1)
                                 easytotal -= chooseRent(1)
                             break
@@ -279,7 +279,7 @@ def main():
                 totaltext = font.render(f"Your Total: {mediumtotal}", True, (0, 0, 255))
                 screen.blit(totaltext, (30, random_offset))
                 random_offset += 25
-                if((i+2)%7 == 0 and (i+2) != 0):
+                if((i+1)%7 == 0):
                     mediumtotal += chooseIncome(2)
                     mediumtotal -= chooseRent(2)
             elif(y == 2):
@@ -288,7 +288,7 @@ def main():
                 totaltext = font.render(f"Your Total: {mediumtotal}", True, (0, 0, 255))
                 screen.blit(totaltext, (30, random_offset))
                 random_offset += 25
-                if((i+2)%7 == 0 and (i+2) != 0):
+                if((i+1)%7 == 0):
                     mediumtotal += chooseIncome(2)
                     mediumtotal -= chooseRent(2)
             elif(y == 3):
@@ -301,7 +301,7 @@ def main():
                             totaltext = font.render(f"Your Total: {mediumtotal}", True, (0, 0, 255))
                             screen.blit(totaltext, (30, random_offset))
                             random_offset += 25
-                            if((i+2)%7 == 0 and (i+2) != 0):
+                            if((i+1)%7 == 0):
                                 mediumtotal += chooseIncome(2)
                                 mediumtotal -= chooseRent(2)
                             break
@@ -310,7 +310,7 @@ def main():
                             totaltext = font.render(f"Your Total: {mediumtotal}", True, (0, 0, 255))
                             screen.blit(totaltext, (30, random_offset))
                             random_offset += 25
-                            if((i+2)%7 == 0 and (i+2) != 0):
+                            if((i+1)%7 == 0):
                                 mediumtotal += chooseIncome(2)
                                 mediumtotal -= chooseRent(2)
                             break
@@ -363,7 +363,7 @@ def main():
                 totaltext = font.render(f"Your Total: {hardtotal}", True, (0, 0, 255))
                 screen.blit(totaltext, (30, random_offset))
                 random_offset += 25
-                if((i+2)%7 == 0 and (i+2) != 0):
+                if((i+1)%7 == 0):
                     hardtotal += chooseIncome(3)
                     hardtotal -= chooseRent(3)
             elif(y == 2):
@@ -372,7 +372,7 @@ def main():
                 totaltext = font.render(f"Your Total: {hardtotal}", True, (0, 0, 255))
                 screen.blit(totaltext, (30, random_offset))
                 random_offset += 25
-                if((i+2)%7 == 0 and (i+2) != 0):
+                if((i+1)%7 == 0):
                     hardtotal += chooseIncome(3)
                     hardtotal -= chooseRent(3)
             elif(y == 3):
@@ -385,7 +385,7 @@ def main():
                             totaltext = font.render(f"Your Total: {hardtotal}", True, (0, 0, 255))
                             screen.blit(totaltext, (30, random_offset))
                             random_offset += 25
-                            if((i+2)%7 == 0 and (i+2) != 0):
+                            if((i+1)%7 == 0):
                                 hardtotal += chooseIncome(3)
                                 hardtotal -= chooseRent(3)
                             break
@@ -394,7 +394,7 @@ def main():
                             totaltext = font.render(f"Your Total: {hardtotal}", True, (0, 0, 255))
                             screen.blit(totaltext, (30, random_offset))
                             random_offset += 25
-                            if((i+2)%7 == 0 and (i+2) != 0):
+                            if((i+1)%7 == 0):
                                 hardtotal += chooseIncome(3)
                                 hardtotal -= chooseRent(3)
                             break
