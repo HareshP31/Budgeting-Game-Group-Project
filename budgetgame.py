@@ -167,16 +167,6 @@ def main():
                         sys.exit()
                     elif event.key == pygame.K_r:
                         main()
-
-            if (y == 3):
-              display_text(screen, font, f"{phrase} ${rand_num} (Y/N?)", (30, random_offset))
-              random_offset += 25
-              pygame.display.flip()
-            else:
-              display_text(screen, font, f"{phrase} ${rand_num} (Press Space)", (30, random_offset))
-              random_offset += 25
-              pygame.display.flip()
-        
             # refresh screen to blank at the end of the week
             if(key_counter%7 == 0 and key_counter != 0):
                 white = (255, 255, 255)
@@ -186,6 +176,9 @@ def main():
                 pygame.display.flip()
             # If it is good phrase and requires no input
             if(y == 1):
+                display_text(screen, font, f"{phrase} ${rand_num} (Press Space)", (30, random_offset))
+                random_offset += 25
+                pygame.display.flip()
                 key_counter += 1
                 easy_total += rand_num
                 display_text(screen, font, f"Your Total: {easy_total}", (30, random_offset), (0, 0, 255))
@@ -195,6 +188,9 @@ def main():
                     easy_total -= chooseRent(1)
             # If it is bad phrase and requires no input
             elif(y == 2):
+                display_text(screen, font, f"{phrase} ${rand_num} (Press Space)", (30, random_offset))
+                random_offset += 25
+                pygame.display.flip()
                 key_counter += 1
                 easy_total -= rand_num
                 display_text(screen, font, f"Your Total: {easy_total}", (30, random_offset), (0, 0, 255))
@@ -204,6 +200,9 @@ def main():
                     easy_total -= chooseRent(1)
             # If it is phrase that requires input
             elif(y == 3):
+                display_text(screen, font, f"{phrase} ${rand_num} (Y/N?)", (30, random_offset))
+                random_offset += 25
+                pygame.display.flip()
                 while True:
                     event = pygame.event.wait()
                     if event.type == pygame.KEYDOWN:
