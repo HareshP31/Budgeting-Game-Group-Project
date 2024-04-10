@@ -46,37 +46,37 @@ def chooseRent(r):
 # Function to generate phrases
 def generate_random_phrase(b):
     good_nochoice = [
-        "Congratulations! You won a contest and received groceries worth: (Press space)",
-        "You just got a bonus! Worth: (Press space)",
-        "Your daughter got a full ride to her dream college and financial aid worth: (Press space)",
-        "It is the holiday season! You got a gift card worth: (Press space)",
-        "Great news! Your utility bills decreased this month due to energy-saving improvements by: (Press space)",
-        "Your job gave you a bonus for working overtime. Worth: (Press space)",
-        "Lucky day! Your insurance rewarded you for safe driving with: (Press space)",
-        "You received a tax refund from overpaid taxes last year. Worth: (Press space)",
-        "A friend paid you back after they owed you for a long time. Worth: (Press space)",
-        "Your favorite store is having a clearance sale, and you saved: (Press space)"
+        "Congratulations! You won a contest and received groceries worth:",
+        "You just got a bonus! Worth:",
+        "Your daughter got a full ride to her dream college and financial aid worth:",
+        "It is the holiday season! You got a gift card worth:",
+        "Great news! Your utility bills decreased this month due to energy-saving improvements by:",
+        "Your job gave you a bonus for working overtime. Worth:",
+        "Lucky day! Your insurance rewarded you for safe driving with:",
+        "You received a tax refund from overpaid taxes last year. Worth:",
+        "A friend paid you back after they owed you for a long time. Worth:",
+        "Your favorite store is having a clearance sale, and you saved:"
     ]
     bad_nochoice = [
-        "Your refrigerator stopped working and it will cost: (Press space)",
-        "Your car broke down and towing it will cost: (Press space)",
-        "Your pet fell ill recently. The cost to see the vet is: (Press space)",
-        "You were brushing your teeth in the bathroom when you suddenly felt a drop on your face. Your roof is leaking! To fix it costs: (Press space)",
-        "You fell down the stairs and possibly twisted your ankle. A doctor visit costs: (Press space)",
-        "Your grandfather needs help to pay for his medical bills worth: (Press space)",
+        "Your refrigerator stopped working and it will cost:",
+        "Your car broke down and towing it will cost:",
+        "Your pet fell ill recently. The cost to see the vet is:",
+        "You were brushing your teeth in the bathroom when you suddenly realized, your roof is leaking! To fix it costs:",
+        "You fell down the stairs and possibly twisted your ankle. A doctor visit costs:",
+        "Your grandfather needs help to pay for his medical bills worth:",
     ]
     yesno = [
-        "Your child is going on a school field trip to the Grand Canyon. She’s been wanting to go for the longest time and the cost is: (Y/N?)",
-        "Your child's school is hosting a fundraising event, and the suggested donation is: (Y/N?)",
-        "Your laptop screen cracked, and replacing it will cost: (Y/N?)",
-        "Your water heater malfunctioned, and fixing it will cost: (Y/N?)",
-        "Your grandmother is ill and she needs you. The flight to see her costs: (Y/N?)",
-        "It is your best friend's birthday; the present costs: (Y/N?)",
-        "Your TV broke; a new TV costs: (Y/N?)",
-        "Your bed frame broke; a new one costs: (Y/N?)",
-        "Your friends invited you to a concert that costs: (Y/N?)",
-        "You need a haircut that will cost: (Y/N?)",
-        "Your lawn needs mowing which will cost: (Y/N?)"
+        "Your child is going on a school field trip to the Grand Canyon. The cost is:",
+        "Your child's school is hosting a fundraising event, and the suggested donation is:",
+        "Your laptop screen cracked, and replacing it will cost:",
+        "Your water heater malfunctioned, and fixing it will cost:",
+        "Your grandmother is ill and she needs you. The flight to see her costs:",
+        "It is your best friend's birthday; the present costs:",
+        "Your TV broke; a new TV costs:",
+        "Your bed frame broke; a new one costs:",
+        "Your friends invited you to a concert that costs:",
+        "You need a haircut that will cost:",
+        "Your lawn needs mowing which will cost:"
     ]
     # Sets number range based on difficulty
     if b == 1:
@@ -101,14 +101,23 @@ def generate_random_phrase(b):
     return phrase, random_number, y
 
 def reset_game():
-    global key_counter, easy_total, medium_total, hard_total
-    key_counter = 0
-    easy_total = 1000
-    medium_total = 750
-    hard_total = 500
+    reset = None
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    reset = 1
+                    return reset
+                elif event.key == pygame.K_r:
+                    reset = 2
+                    return reset   
+                else:
+                    print("Please enter 'r' or esc")
 
 def main():
-    global key_counter, easy_total, medium_total, hard_total
     # Initialize pygame window
     pygame.init()
     screen = pygame.display.set_mode((1366, 768))
@@ -157,17 +166,17 @@ def main():
                         pygame.quit()
                         sys.exit()
                     elif event.key == pygame.K_r:
-                        reset_game()
-                        white = (255, 255, 255)
-                        screen.fill(white)
-                        random_offset = 230
-                        display_text(screen, font, f"Week {(i//7)+1}: ", (30, 0))
-                        pygame.display.flip()
-                        break
+                        main()
 
-            display_text(screen, font, f"{phrase} - Value: {rand_num}", (30, random_offset))
-            random_offset += 25
-            pygame.display.flip()
+            if (y == 3):
+              display_text(screen, font, f"{phrase} ${rand_num} (Y/N?)", (30, random_offset))
+              random_offset += 25
+              pygame.display.flip()
+            else:
+              display_text(screen, font, f"{phrase} ${rand_num} (Press Space)", (30, random_offset))
+              random_offset += 25
+              pygame.display.flip()
+        
             # refresh screen to blank at the end of the week
             if(key_counter%7 == 0 and key_counter != 0):
                 white = (255, 255, 255)
@@ -222,6 +231,7 @@ def main():
                         elif event.key == pygame.K_ESCAPE:
                             pygame.quit()
                             sys.exit()
+            """
             if(i==27):
                 if easy_total > 1000:
                     display_text(screen, font, "You finished with more than what you started with!", (30, random_offset), (0, 255, 0))
@@ -231,6 +241,24 @@ def main():
                     display_text(screen, font, "You finished and you are in debt :(", (30, random_offset), (255, 0, 0))
                 random_offset += 25
                 display_text(screen, font, "Press r to reset the game and play again! or press esc to exit.", (30, random_offset))
+            """
+
+        if easy_total > 1000:
+            display_text(screen, font, "You finished with more than what you started with!", (30, random_offset), (0, 255, 0))
+            random_offset += 25
+        elif easy_total < 1000 and easy_total > 0:
+            display_text(screen, font, "You finished with less than what you started with!", (30, random_offset), (255, 0, 0))
+            random_offset += 25
+        elif easy_total < 0:
+            display_text(screen, font, "You finished and you are in debt :(", (30, random_offset), (255, 0, 0))
+            random_offset += 25
+        display_text(screen, font, "Press r to reset the game and play again! or press esc to exit.", (30, random_offset))  
+        reset = reset_game()
+        if(reset == 2):
+            main()
+        elif(reset == 1):
+            pygame.quit()
+            sys.exit()
     
     elif difficulty == "medium":
         display_text(screen, font, "Medium selected!", (30, 150))
@@ -248,9 +276,16 @@ def main():
                     elif event.key == pygame.K_ESCAPE:
                         pygame.quit()
                         sys.exit()
-            display_text(screen, font, f"{phrase} - Value: {rand_num}", (30, random_offset))
-            random_offset += 25
-            pygame.display.flip()
+
+            if (y == 3):
+              display_text(screen, font, f"{phrase} ${rand_num} (Y/N?)", (30, random_offset))
+              random_offset += 25
+              pygame.display.flip()
+            else:
+              display_text(screen, font, f"{phrase} ${rand_num} (Press Space)", (30, random_offset))
+              random_offset += 25
+              pygame.display.flip()
+
             # refresh screen to blank
             if(key_counter%7 == 0 and key_counter != 0):
                 white = (255, 255, 255)
@@ -322,9 +357,16 @@ def main():
                     elif event.key == pygame.K_ESCAPE:
                         pygame.quit()
                         sys.exit()
-            display_text(screen, font, f"{phrase} - Value: {rand_num}", (30, random_offset))
-            random_offset += 25
-            pygame.display.flip()
+
+            if (y == 3):
+              display_text(screen, font, f"{phrase} ${rand_num} (Y/N?)", (30, random_offset))
+              random_offset += 25
+              pygame.display.flip()
+            else:
+              display_text(screen, font, f"{phrase} ${rand_num} (Press Space)", (30, random_offset))
+              random_offset += 25
+              pygame.display.flip()
+
             # refresh screen to blank
             if(key_counter%7 == 0 and key_counter != 0):
                 white = (255, 255, 255)
@@ -382,7 +424,7 @@ def main():
 
 
     pygame.display.flip()
-
+    
     # Continue running until escape key is pressed
     while True:
         for event in pygame.event.get():
@@ -393,5 +435,6 @@ def main():
                 if event.key == pygame.K_ESCAPE:
                     pygame.quit()
                     sys.exit()
+                    
 
 main()
