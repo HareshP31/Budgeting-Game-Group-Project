@@ -101,21 +101,20 @@ def generate_random_phrase(b):
     return phrase, random_number, y
 
 def reset_game():
-    reset = None
-    while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    reset = 1
-                    return reset
-                elif event.key == pygame.K_r:
-                    reset = 2
-                    return reset   
-                else:
-                    print("Please enter 'r' or esc")
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                reset = 1
+                return reset
+            elif event.key == pygame.K_r:
+                reset = 2
+                return reset   
+            else:
+                print("Please enter 'r' or esc")
+    return None
 
 def main():
     # Initialize pygame window
@@ -127,6 +126,7 @@ def main():
 
     running = True
     difficulty = None
+    reset = None
     # For refreshing window to blank screen
     key_counter = 0
     # total variables
@@ -230,17 +230,6 @@ def main():
                         elif event.key == pygame.K_ESCAPE:
                             pygame.quit()
                             sys.exit()
-            """
-            if(i==27):
-                if easy_total > 1000:
-                    display_text(screen, font, "You finished with more than what you started with!", (30, random_offset), (0, 255, 0))
-                elif easy_total < 1000 and easy_total > 0:
-                    display_text(screen, font, "You finished with less than what you started with!", (30, random_offset), (255, 0, 0))
-                elif easy_total < 0:
-                    display_text(screen, font, "You finished and you are in debt :(", (30, random_offset), (255, 0, 0))
-                random_offset += 25
-                display_text(screen, font, "Press r to reset the game and play again! or press esc to exit.", (30, random_offset))
-            """
 
         if easy_total > 1000:
             display_text(screen, font, "You finished with more than what you started with!", (30, random_offset), (0, 255, 0))
@@ -251,8 +240,17 @@ def main():
         elif easy_total < 0:
             display_text(screen, font, "You finished and you are in debt :(", (30, random_offset), (255, 0, 0))
             random_offset += 25
-        display_text(screen, font, "Press r to reset the game and play again! or press esc to exit.", (30, random_offset))  
-        reset = reset_game()
+        
+        running = True
+        reset = None
+        display_text(screen, font, "Press r to reset the game and play again! or press esc to exit.", (30, random_offset)) 
+        while running:
+            reset = reset_game()
+            if reset:
+                break
+
+            pygame.display.flip()
+
         if(reset == 2):
             main()
         elif(reset == 1):
@@ -332,13 +330,32 @@ def main():
                         elif event.key == pygame.K_ESCAPE:
                             pygame.quit()
                             sys.exit()
-            if(i==27):
-                if medium_total > 750:
-                    display_text(screen, font, "You finished with more than what you started with!", (30, random_offset), (0, 255, 0))
-                elif medium_total < 750 and medium_total > 0:
-                    display_text(screen, font, "You finished with less than what you started with!", (30, random_offset), (255, 0, 0))
-                elif medium_total < 0:
-                    display_text(screen, font, "You finished and you are in debt :(", (30, random_offset), (255, 0, 0))                                
+
+        if medium_total > 1000:
+            display_text(screen, font, "You finished with more than what you started with!", (30, random_offset), (0, 255, 0))
+            random_offset += 25
+        elif medium_total < 1000 and medium_total > 0:
+            display_text(screen, font, "You finished with less than what you started with!", (30, random_offset), (255, 0, 0))
+            random_offset += 25
+        elif medium_total < 0:
+            display_text(screen, font, "You finished and you are in debt :(", (30, random_offset), (255, 0, 0))
+            random_offset += 25
+        
+        running = True
+        reset = None
+        display_text(screen, font, "Press r to reset the game and play again! or press esc to exit.", (30, random_offset)) 
+        while running:
+            reset = reset_game()
+            if reset:
+                break
+
+            pygame.display.flip()
+
+        if(reset == 2):
+            main()
+        elif(reset == 1):
+            pygame.quit()
+            sys.exit()                             
 
     elif difficulty == "hard":
         display_text(screen, font, "Hard selected!", (30, 150))
@@ -413,13 +430,31 @@ def main():
                         elif event.key == pygame.K_ESCAPE:
                             pygame.quit()
                             sys.exit()
-            if(i==27):
-                if hard_total > 500:
-                    display_text(screen, font, "You finished with more than what you started with!", (30, random_offset), (0, 255, 0))
-                elif hard_total < 500 and hard_total > 0:
-                    display_text(screen, font, "You finished with less than what you started with!", (30, random_offset), (255, 0, 0))
-                elif hard_total < 0:
-                    display_text(screen, font, "You finished and you are in debt :(", (30, random_offset), (255, 0, 0))       
+        if hard_total > 500:
+            display_text(screen, font, "You finished with more than what you started with!", (30, random_offset), (0, 255, 0))
+            random_offset += 25
+        elif hard_total < 500 and hard_total > 0:
+            display_text(screen, font, "You finished with less than what you started with!", (30, random_offset), (255, 0, 0))
+            random_offset += 25
+        elif hard_total < 0:
+            display_text(screen, font, "You finished and you are in debt :(", (30, random_offset), (255, 0, 0))
+            random_offset += 25
+        
+        running = True
+        reset = None
+        display_text(screen, font, "Press r to reset the game and play again! or press esc to exit.", (30, random_offset)) 
+        while running:
+            reset = reset_game()
+            if reset:
+                break
+
+            pygame.display.flip()
+
+        if(reset == 2):
+            main()
+        elif(reset == 1):
+            pygame.quit()
+            sys.exit()   
 
 
     pygame.display.flip()
