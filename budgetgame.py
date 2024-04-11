@@ -273,6 +273,8 @@ def main():
                     elif event.key == pygame.K_ESCAPE:
                         pygame.quit()
                         sys.exit()
+                    elif event.key == pygame.K_r:
+                        main()
 
             if (y == 3):
               display_text(screen, font, f"{phrase} ${rand_num} (Y/N?)", (30, random_offset))
@@ -373,6 +375,8 @@ def main():
                     elif event.key == pygame.K_ESCAPE:
                         pygame.quit()
                         sys.exit()
+                    elif event.key == pygame.K_r:
+                        main()
 
             if (y == 3):
               display_text(screen, font, f"{phrase} ${rand_num} (Y/N?)", (30, random_offset))
