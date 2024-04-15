@@ -1,3 +1,4 @@
+# import modules
 import pygame
 import random
 import sys
@@ -99,16 +100,18 @@ def generate_random_phrase(b):
     phrase = random.choice(selected_list)
     # Return values
     return phrase, random_number, y
-
+# reset function
 def reset_game():
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
         if event.type == pygame.KEYDOWN:
+            # return 1 to close game
             if event.key == pygame.K_ESCAPE:
                 reset = 1
                 return reset
+            # return 2 to play again
             elif event.key == pygame.K_r:
                 reset = 2
                 return reset   
@@ -148,6 +151,8 @@ def main():
         pygame.display.flip()
 
     if difficulty == "easy":
+        with open("highscore.txt", "r") as file:
+            high_score = file.read()
         # prints header
         display_text(screen, font, "Easy selected!", (30, 150))
         display_text(screen, font, "Your income is $1,000 a week", (30, 170))
@@ -230,17 +235,30 @@ def main():
                         elif event.key == pygame.K_ESCAPE:
                             pygame.quit()
                             sys.exit()
-
+        # print final message
         if easy_total > 1000:
-            display_text(screen, font, "You finished with more than what you started with!", (30, random_offset), (0, 255, 0))
+            display_text(screen, font, f"You finished with more than what you started with! Your total is: {easy_total}", (30, random_offset), (0, 255, 0))
             random_offset += 25
         elif easy_total < 1000 and easy_total > 0:
-            display_text(screen, font, "You finished with less than what you started with!", (30, random_offset), (255, 0, 0))
+            display_text(screen, font, f"You finished with less than what you started with! Your total is: {easy_total}", (30, random_offset), (255, 0, 0))
             random_offset += 25
         elif easy_total < 0:
-            display_text(screen, font, "You finished and you are in debt :(", (30, random_offset), (255, 0, 0))
+            display_text(screen, font, f"You finished and you are in debt :( Your total is: {easy_total}", (30, random_offset), (255, 0, 0))
             random_offset += 25
-        
+
+        if easy_total > int(high_score):
+            display_text(screen, font, f"You beat your high score! Your new high score is: {easy_total}", (30, random_offset), (0, 255, 0))
+            random_offset += 25
+            with open("highscore.txt", "w") as file:
+                file.write(str(easy_total))
+        elif easy_total < int(high_score):
+            display_text(screen, font, f"You did not beat your high score. Try again. Your total is: {easy_total}", (30, random_offset), (255, 0, 0))
+            random_offset += 25
+        elif easy_total == int(high_score):
+            display_text(screen, font, f"You matched your high score. Your total is: {easy_total}", (30, random_offset), (255, 0, 0))
+            random_offset += 25
+
+        # ask if user wants to play again
         running = True
         reset = None
         display_text(screen, font, "Press r to reset the game and play again! or press esc to exit.", (30, random_offset)) 
@@ -248,16 +266,19 @@ def main():
             reset = reset_game()
             if reset:
                 break
-
             pygame.display.flip()
+        # call function and decide based on returned value
 
         if(reset == 2):
             main()
         elif(reset == 1):
             pygame.quit()
             sys.exit()
-    
+            
+    # same logic for medium
     elif difficulty == "medium":
+        with open("highscore.txt", "r") as file:
+            high_score = file.read()
         display_text(screen, font, "Medium selected!", (30, 150))
         display_text(screen, font, "Your income is $750 a week", (30, 170))
         display_text(screen, font, "Your rent is $150 a week", (30, 190))
@@ -343,6 +364,18 @@ def main():
             display_text(screen, font, "You finished and you are in debt :(", (30, random_offset), (255, 0, 0))
             random_offset += 25
         
+        if medium_total > int(high_score):
+            display_text(screen, font, f"You beat your high score! Your new high score is: {medium_total}", (30, random_offset), (0, 255, 0))
+            random_offset += 25
+            with open("highscore.txt", "w") as file:
+                file.write(str(medium_total))
+        elif medium_total < int(high_score):
+            display_text(screen, font, f"You did not beat your high score. Try again. Your total is: {medium_total}", (30, random_offset), (255, 0, 0))
+            random_offset += 25
+        elif medium_total == int(high_score):
+            display_text(screen, font, f"You matched your high score. Your total is: {medium_total}", (30, random_offset), (255, 0, 0))
+            random_offset += 25
+    
         running = True
         reset = None
         display_text(screen, font, "Press r to reset the game and play again! or press esc to exit.", (30, random_offset)) 
@@ -357,9 +390,12 @@ def main():
             main()
         elif(reset == 1):
             pygame.quit()
-            sys.exit()                             
+            sys.exit()       
 
+    # same logic for hard
     elif difficulty == "hard":
+        with open("highscore.txt", "r") as file:
+            high_score = file.read()
         display_text(screen, font, "Hard selected!", (30, 150))
         display_text(screen, font, "Your income is $500 a week", (30, 170))
         display_text(screen, font, "Your rent is $200 a week", (30, 190))
@@ -442,6 +478,18 @@ def main():
             random_offset += 25
         elif hard_total < 0:
             display_text(screen, font, "You finished and you are in debt :(", (30, random_offset), (255, 0, 0))
+            random_offset += 25
+
+        if hard_total > int(high_score):
+            display_text(screen, font, f"You beat your high score! Your new high score is: {hard_total}", (30, random_offset), (0, 255, 0))
+            random_offset += 25
+            with open("highscore.txt", "w") as file:
+                file.write(str(hard_total))
+        elif hard_total < int(high_score):
+            display_text(screen, font, f"You did not beat your high score. Try again. Your total is: {hard_total}", (30, random_offset), (255, 0, 0))
+            random_offset += 25
+        elif hard_total == int(high_score):
+            display_text(screen, font, f"You matched your high score. Your total is: {hard_total}", (30, random_offset), (255, 0, 0))
             random_offset += 25
         
         running = True
