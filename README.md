@@ -7,6 +7,7 @@ This is a text-based budgeting game with three difficulties: easy, medium, and h
 ### Challenges we faced:
 
 Figuring out how to properly randomly generate the phrases.
+
 Figuring out how to properly add and subtract from the total based on the phrases.
 
 ### Technologies Used:
@@ -16,5 +17,9 @@ Python + Pygame
 ### To-Do:
 
 Implement graphics to make the game more visually pleasing.
+
 Make the high score feature unique to difficulty selected.
+
 Make user input more seamless, since they have to press space to continue after input.
+
+Add a happiness factor alongside budgeting to make playing the game feel more rewarding.
